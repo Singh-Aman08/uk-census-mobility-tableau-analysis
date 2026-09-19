@@ -1,38 +1,34 @@
 # Employment and Mobility Patterns in Counties of England & Wales (2011) with Age Comparison to 2021
-## Tableau Dashboard Preview
 
 ![Dashboard](Interactive%20Tableau%20workbook/dashboard.png)
+
 ## Overview
 
 This project investigates socio-economic and mobility patterns across county-level local authorities in England and Wales using UK Census data. The analysis combines demographic, economic, transportation, and vehicle ownership indicators from the 2011 Census with age structure data from the 2021 Census to explore regional disparities and demographic changes over a decade.
 
-The project applies dimensionality reduction, clustering, Bayesian analysis, and interactive visual analytics to identify distinct socio-economic profiles across 174 county-level local authorities.
+The project applies dimensionality reduction, K-Means clustering, Bayesian analysis, and interactive visual analytics to identify distinct socio-economic profiles across 174 county-level local authorities.
 
 ## Objectives
-
-The main objectives of this study are:
 
 - Examine regional differences in employment, mobility, car ownership, and age structure.
 - Compare age demographics between 2011 and 2021.
 - Identify underlying socio-economic patterns using dimensionality reduction techniques.
-- Group counties into meaningful socio-economic clusters.
+- Group county-level local authorities into meaningful socio-economic clusters.
 - Explore probabilistic relationships between socio-economic variables using Bayesian methods.
 - Present findings through an interactive Tableau dashboard.
-
----
 
 ## Dataset
 
 The analysis uses UK Census data for England and Wales at the county-level local authority scale.
 
-### 2011 Census Datasets
+### 2011 Census
 
 - Age Structure
 - Economic Activity
 - Distance Travelled to Work
 - Car Ownership
 
-### 2021 Census Dataset
+### 2021 Census
 
 - Age Structure (used for decade-long demographic comparison)
 
@@ -43,20 +39,14 @@ The analysis uses UK Census data for England and Wales at the county-level local
 
 ## Data Preparation
 
-The original census datasets contained highly granular variables. To improve interpretability and support comparative analysis, variables were aggregated into broader socio-economic indicators.
+The original census datasets contained detailed variables that were aggregated into broader socio-economic indicators:
 
-Examples include:
+- Individual age bands → Youth, Working-Age, and Retired Population
+- Detailed commute distances → Short, Medium, and Long Commutes
+- Vehicle ownership categories → Car Ownership Indicators
+- Economic activity classes → Employment Activity Indicators
 
-| Original Variables | Aggregated Feature |
-|-------------------|-------------------|
-| Individual age bands | Youth, Working-Age, Retired Population |
-| Detailed commute distances | Short, Medium, Long Commutes |
-| Vehicle ownership categories | Car Ownership Indicators |
-| Economic activity classes | Employment Activity Indicators |
-
-Both absolute counts and proportional measures were analysed to account for differences in population size across counties.
-
----
+Both absolute counts and proportional measures were analysed to account for differences in population size across local authorities.
 
 ## Methodology
 
@@ -68,38 +58,36 @@ Both absolute counts and proportional measures were analysed to account for diff
 
 ### 2. Dimensionality Reduction
 
-Three techniques were explored:
+Three dimensionality reduction techniques were explored:
 
 - Principal Component Analysis (PCA)
 - t-Distributed Stochastic Neighbor Embedding (t-SNE)
 - Uniform Manifold Approximation and Projection (UMAP)
 
-UMAP was selected as the primary technique due to its ability to preserve local and global structure while producing meaningful cluster separation.
+UMAP was selected as the primary dimensionality reduction technique because it provided a useful low-dimensional representation of the high-dimensional feature space for subsequent clustering and visualisation.
 
 ### 3. Clustering Analysis
 
-UMAP embeddings were used to identify socio-economic groupings across counties.
+The UMAP representation was used as the input for **K-Means clustering** to identify socio-economic groupings across county-level local authorities.
 
-Four distinct clusters emerged from the analysis.
+Four clusters were identified in the final clustering solution.
 
 ### 4. Bayesian Analysis
 
-Posterior distributions were used to investigate probabilistic relationships between:
+Bayesian analysis was used to examine probabilistic relationships between demographic, economic, commuting, and vehicle ownership variables.
 
-- Economic activity
-- Commuting behaviour
-- Car ownership
-- Demographic structure
+The posterior distributions indicated:
 
-This approach provided insights into the strength and uncertainty of relationships among variables.
+- A positive relationship between economic participation and shorter commuting distances, particularly for residents living within 30 km of their workplace.
+- A negative relationship between the proportion of retired-age residents and overall economic activity.
+- A negative relationship between unemployment rates and economic activity.
+- Car ownership was an important component of the socio-economic profile, while proximity to employment showed a stronger predictive relationship with the working population than vehicle ownership alone.
+
+The Bayesian analysis also provided estimates of uncertainty around these relationships, allowing the strength and direction of the observed associations to be assessed.
 
 ### 5. Visual Analytics
 
-Interactive dashboards were developed using:
-
-- Tableau
-
-The dashboard enables:
+An interactive Tableau dashboard was developed to enable:
 
 - Regional comparisons
 - Cluster exploration
@@ -111,15 +99,11 @@ The dashboard enables:
 
 ### Cluster 1: Ageing, Long Commute Workforce
 
-**Characteristics:**
-
 - Older population structure
 - Longer commuting distances
 - Lower local employment accessibility
 
 ### Cluster 2: Locally Employed, Mixed Mobility Communities
-
-**Characteristics:**
 
 - Strong local employment patterns
 - Diverse mobility behaviour
@@ -127,97 +111,102 @@ The dashboard enables:
 
 ### Cluster 3: High Employment, High Mobility, Multi-Car Areas
 
-**Characteristics:**
-
 - High economic activity
 - Greater mobility
 - Higher rates of multi-car ownership
 
 ### Cluster 4: Low Mobility, Car-Limited Areas
 
-**Characteristics:**
-
 - Lower vehicle ownership
 - Reduced mobility
 - Potentially constrained access to employment opportunities
-
----
 
 ## Key Findings
 
 ### Employment and Mobility
 
-- Regions with higher economic activity generally exhibit greater mobility.
-- Multi-car ownership is associated with increased commuting flexibility.
-- Proximity to workplaces appears to be a stronger driver of economic activity than vehicle ownership alone.
+- Regions with higher economic activity generally exhibited greater mobility.
+- Shorter commuting distances showed a positive relationship with economic participation, particularly within the 30 km range examined in the Bayesian analysis.
+- Car ownership formed an important part of the socio-economic profiles identified through the analysis.
+- The Bayesian analysis indicated a stronger predictive relationship between proximity to employment and the working population than vehicle ownership alone.
 
 ### Demographic Change
 
-- Comparison between 2011 and 2021 indicates a gradual ageing of the population.
-- Several regions experienced significant shifts toward older age structures over the decade.
+- Comparison of 2011 and 2021 age structures indicates a general shift towards older population structures across several local authorities.
+- Several regions experienced noticeable changes in their age composition over the decade.
 
 ### Spatial Patterns
 
-- Socio-economic clusters are geographically concentrated rather than randomly distributed.
+- The mapped cluster assignments show geographic concentration across parts of England and Wales.
 - Central England contains many high-employment, high-mobility areas.
 - Parts of Wales, Northern England, and South-West England display ageing populations and longer commuting patterns.
 
----
+## Technologies and Methods
 
-## Technologies Used
+### Technologies
 
 - Python
 - Pandas
 - NumPy
 - Scikit-learn
 - UMAP
-- PCA
-- Bayesian Analysis
 - Tableau
-## Learning Outcomes
 
-This project demonstrates:
+### Methods
+
+- Principal Component Analysis (PCA)
+- t-SNE
+- UMAP
+- K-Means Clustering
+- Bayesian Analysis
+- Interactive Data Visualisation
+
+## Learning Outcomes
 
 - Census data integration and transformation
 - High-dimensional data analysis
-- Dimensionality reduction techniques
+- Dimensionality reduction
 - Unsupervised clustering
 - Bayesian statistical reasoning
 - Interactive visual analytics
-- Information visualization design principles
+- Information visualisation design principles
 - Tableau dashboard development
 
 ## Repository Structure
 
-The project is organized as follows:
+### Cleaned / Transformed Data
 
-- **Cleaned and transformed datasets**
-  - Data21-11.csv: Combined dataset used for longitudinal analysis (2011–2021)
-  - Preprocessed Data.csv: Final cleaned dataset used for modelling and clustering
+- `Data21-11.csv` — Combined dataset used for longitudinal analysis (2011–2021)
+- `Preprocessed Data.csv` — Final cleaned dataset used for modelling and clustering
 
-- **Raw census datasets (2011 & 2021)**
-  - Aggregate_Data.csv: Aggregated socio-economic indicators
-  - Car_or_van.csv: Car and van ownership statistics
-  - Distance_travelled_to_work.csv: Commuting distance distribution data
-  - Population_Age.csv: Age structure data from 2011 Census
-  - census2021-ts007-utla (Age).csv: Age structure data from 2021 Census
-  - economic_activity.csv: Employment and economic activity indicators
+### Raw Census Data
 
-- **Final coursework report (PDF)**
-  - fp25098_Report.pdf: Full academic report detailing methodology, analysis, and findings
+- `Aggregate_Data.csv` — Aggregated socio-economic indicators
+- `Car_or_van.csv` — Car/van ownership
+- `Distance_travelled_to_work.csv` — Distance travelled to work
+- `Population_Age.csv` — 2011 age structure
+- `census2021-ts007-utla (Age).csv` — 2021 age structure
+- `economic_activity.csv` — Economic activity
 
-- **Interactive Tableau workbook**
-  - fp25098_Tableau.twbx: Interactive dashboard for exploring socio-economic clusters and mobility patterns
+### Final Report
 
-- **Notebooks**
-  - Baysian_Posterior_Distribution.ipynb: Bayesian analysis of relationships between socio-economic variables
-  - Dimensionality_Reduction.ipynb: PCA, t-SNE, and UMAP-based dimensionality reduction and clustering
+- `fp25098_Report.pdf`
 
-- **README.md**
-  - Project documentation and overview
+### Tableau
+
+- `fp25098_Tableau.twbx`
+
+### Notebooks
+
+- `Baysian_Posterior_Distribution.ipynb`
+- `Dimensionality_Reduction.ipynb`
+
+### Other
+
+- `README.md`
+
 ## Author
 
-**Aman Singh**
-
+**Aman Singh**  
 MSc Data Science Student  
 University of Bristol
